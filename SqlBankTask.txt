@@ -1,0 +1,18 @@
+create table CustomerTable(CustId int primary key,CustName varchar(30),CustCity varchar(30),CustAddress varchar(30),CustMobile bigint unique,CustPan varchar(30) unique,CustPassword varchar(30));
+create table AccountInfo(AccId int primary key,CustomerId int,AccType varchar(30),AccBalance double,AccOpendate date,AccStatus varchar(30),foreign key(CustomerId)references CustomerTable(CustId));
+create table TransactionInfo(TransId int primary key,AccountId int,TransType varchar(30),Amount double check(Amount>0),Transdate date,foreign key(AccountId)references AccountInfo(AccId));
+insert into CustomerTable values(1,'Karun','Chennai','TN',9873526720,'Iwfgs6677f','Karun@123'),(2,'Arun','Chennai','TN',9834632829,'hdkso4376k','Arun@123'),
+(3,'Varun','Trichy','TN',7263649501,'pqgdh0978q','Varun@123'),(4,'Chandru','Madurai','TN',7280903828,'hfkla2354h','Chandru@123'),(5,'Manoj','Madurai','TN',4783920209,'ghtsa7652m','Manoj@123');
+insert into CustomerTable values(6,'Paul','Chennai','TN',9873626720,'Iklgs6677f','Paul@123'),(7,'Shankar','Chennai','TN',9830032829,'hdlmo4378k','Shankar@123'),(8,'Kamal','Trichy','TN',2263649501,'asgdh0978q','Kamal@123'),
+(9,'Rajni','Coimbatore','TN',7280978828,'fgkla2354h','Rajni@123'),(10,'Venkat','Madurai','TN',6783920209,'gmmsa7652m','Venkat@123');
+insert into AccountInfo values(22,1,'Savings',23000.00,'1989/12/26','Open'),(32,2,'Savings',32000.00,'1999/07/26','Open'),(42,3,'Salary',23000.00,'2001/06/26','Open')
+,(52,4,'Salary',100000.00,'2009/02/26','Open'),(62,5,'Savings',200000.00,'2002/11/16','Open');
+insert into AccountInfo values(72,6,'Savings',44000.00,'1969/12/26','Open'),(82,7,'Savings',90000.00,'1991/07/26','Open'),(92,8,'Salary',678000.00,'2010/06/26','Open'),
+(102,9,'Salary',300000.00,'2009/05/26','Open'),(112,10,'Savings',2000000.00,'2012/11/16','Open');
+insert into TransactionInfo values(111,22,'D',1000.00,'2012/07/09'),(222,32,'D',2000.00,'2013/07/09'),(333,42,'C',5000.00,'2016/09/12'),(444,52,'C',20000.00,'2019/12/11'),(555,62,'C',15000.00,'2020/04/19');
+insert into TransactionInfo values(921,112,'D',10000.00,'2021/07/09'),(122,102,'D',20000.00,'2020/07/09'),(323,92,'C',15000.00,'2017/09/12'),(744,82,'C',22000.00,'2015/12/17'),(575,72,'C',12000.00,'2020/05/22');
+select * from TransactionInfo where AccountId=102;
+select * from TransactionInfo where Transdate>'2015/01/01' and Transdate<'2020/01/01';
+select * from AccountInfo where CustomerId>3 && CustomerId<=10;
+select AccountInfo.AccId,AccountInfo.Accbalance,TransactionInfo.TransId,TransactionInfo.Amount,TransactionInfo.TransType from AccountInfo join TransactionInfo on AccountInfo.AccId=TransactionInfo.AccountID where Transactioninfo.AccountId=102;
+
